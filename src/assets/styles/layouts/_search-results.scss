@@ -1,0 +1,39 @@
+
+.search-results {
+	height: 600px;
+
+
+	@include min-screen($xs) {
+		#map {
+			display: none;
+		}
+	}
+
+	#map {
+	  bottom: 0;
+	  height: 100%;
+	  position: absolute;
+	  right: 0;
+	}
+
+	.section-content {
+    height: 100%;
+    position: relative;
+	}
+
+	.search-results-list {
+		height: 600px;
+		line-height: 1.5;
+		overflow: auto;
+
+		a + a {
+			margin-left: 5px;
+		}
+	}
+
+	@include min-screen($sm) {
+		#map {
+			display: inline-block;
+		}
+	}
+}

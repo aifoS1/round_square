@@ -1,0 +1,14 @@
+{
+  "dest": "build",
+  "root": "./src",
+  "styles": "/assets/styles",
+  "scripts": "/assets/scripts",
+  "images": "/assets/images",
+  "data": "/data",
+  "templates": {
+    "partials": "/templates/partials",
+    "pages": "/templates/pages",
+    "helpers": "/templates/helpers"
+  },
+  "initialized": "False"
+}
