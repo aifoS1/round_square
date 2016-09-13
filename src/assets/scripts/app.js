@@ -36,6 +36,45 @@ function getResults(query) {
 	})
 }
 
+class resultParser {
+	constructor() {
+		this.parsedVenues = [];
+	}
+
+	createVenue() {
+		this.parsedVenues.forEach(function(venueItem, index) {
+			let venue = new Venue(venueItem);
+		});
+	}
+
+	loopObjects(data) {
+		let objects = data['response']['venues'];
+	
+		objects.forEach(function(venueItem, index) {
+				this.parsedVenues.push(this.parseVenue(venueItem))
+		}.bind(this))
+
+		this.createVenue()
+	}
+
+	parseVenue(venue) {
+		let seamless = venue['delivery'] ? venue['delivery']['url'] : null;
+
+		return {
+			name: venue['name'],
+			phone: venue['contact']['phone'] || null,
+			address: venue['location']['address'] || null,
+			formattedAddress: venue['location']['address'] + ', ' + venue['location']['formattedAddress'][1] || null,
+			twitter: venue['contact']['twitter'] || null,
+			menu: venue['hasMenu'] ? venue['menu']['url'] : null,
+			seamless: seamless,
+			url: venue['url'] || null,
+			latLng: venue['location']['lat'] + ' ' + venue['location']['lng']
+		}
+	}
+
+}
+
 
 class Venue {
 	constructor(args){
@@ -61,7 +100,6 @@ class Venue {
 
 	createVenueListItem() {
 		this.links = this.links.filter(this.filterLinks)
-		// console.log(links)
 		this.addVenueToList()
 	}
 
@@ -138,7 +176,7 @@ class Venue {
 		})
 
 	for (let link of linksArr) {
-		console.log(link)
+
 		links += `<a href="${link['href']}" target="_blank" class="btn btn-default">${link['title']}</a>`
 	}
 
@@ -166,45 +204,6 @@ class venueShow {
 	}
 }
 
-class resultParser {
-	constructor() {
-		this.parsedVenues = [];
-
-	}
-
-	createVenue() {
-		this.parsedVenues.forEach(function(venueItem, index) {
-			let venue = new Venue(venueItem);
-		});
-	}
-
-	loopObjects(data) {
-		let objects = data['response']['venues'];
-	
-		objects.forEach(function(venueItem, index) {
-				this.parsedVenues.push(this.parseVenue(venueItem))
-		}.bind(this))
-
-		this.createVenue()
-	}
-
-	parseVenue(venue) {
-		let seamless = venue['delivery'] ? venue['delivery']['url'] : null;
-		// console.log(venue)
-		return {
-			name: venue['name'],
-			phone: venue['contact']['phone'] || null,
-			address: venue['location']['address'] || null,
-			formattedAddress: venue['location']['address'] + ', ' + venue['location']['formattedAddress'][1] || null,
-			twitter: venue['contact']['twitter'] || null,
-			menu: venue['hasMenu'] ? venue['menu']['url'] : null,
-			seamless: seamless,
-			url: venue['url'] || null,
-			latLng: venue['location']['lat'] + ' ' + venue['location']['lng']
-		}
-	}
-
-}
 
 class GoogleMap {
 	constructor(data) {
@@ -214,9 +213,8 @@ class GoogleMap {
 
 		this.markers = [];
 		this.marker;
-    this.highlightedIcon = this.makeMarkerIcon('FFFF24');
-    this.defaultIcon = this.makeMarkerIcon('0091ff');
     this.largeInfowindow = new google.maps.InfoWindow();
+
 		this.createElement()
 	}
 
@@ -241,15 +239,6 @@ class GoogleMap {
 	    this.marker.addListener('click', function() {
 	      this.populateInfoWindow(this.marker, this.largeInfowindow);
 	    }.bind(this));
-	    // Two event listeners - one for mouseover, one for mouseout,
-	    // to change the colors back and forth.
-	    this.marker.addListener('mouseover', function() {
-	      this.setIcon(this.highlightedIcon);
-	    });
-
-	    this.marker.addListener('mouseout', function() {
-	      this.setIcon(this.defaultIcon);
-	    });
 
 	   }
 
@@ -283,25 +272,6 @@ class GoogleMap {
     }
     map.setCenter(bounds.getCenter());
   }
-  // This function will loop through the listings and hide them all.
-  hideListings() {
-    for (var i = 0; i < this.markers.length; i++) {
-      this.markers[i].setMap(null);
-    }
-  }
-  // This function takes in a COLOR, and then creates a new marker
-  // icon of that color. The icon will be 21 px wide by 34 high, have an origin
-  // of 0, 0 and be anchored at 10, 34).
-  makeMarkerIcon(markerColor) {
-    var markerImage = new google.maps.MarkerImage(
-      'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
-      '|40|_|%E2%80%A2',
-      new google.maps.Size(21, 34),
-      new google.maps.Point(0, 0),
-      new google.maps.Point(10, 34),
-      new google.maps.Size(21,34));
-    return markerImage;
-  }
 
 }	
 
@@ -315,7 +285,7 @@ class GoogleMap {
 // add fail function if api doesnt return results
 // Nice to have: add class for fave venue list where user can add or delete restaurants
 // style
-//DONE
+
 
 
 
