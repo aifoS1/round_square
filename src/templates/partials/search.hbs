@@ -1,0 +1,28 @@
+<section class="venue-search">
+	<div class="section-content">
+		<form id="form" class="form-horizontal">
+		  <div class="form-group">
+			  <div class="col-sm-3">
+			    <input id="user-city" name="user[city]" type="text" class="form-control" placeholder="Choose city e.g. The Bronx">
+
+			    <input id="user-state" type="text" name="user[state]" class="form-control" placeholder="Choose State">
+			  </div>
+			 </div>
+			 <div class="form-group">
+			 	<div class="col-sm-3">
+			    <label for="user-restaurant">Choose Restaurant Type</label>
+			     	<select class="form-control" id="user-restaurant" name="user[restaurant]">
+			       	<option id="user-restaurant" value="diner">Diner</option>
+			       	<option id="user-restaurant" value="sushi">Sushi</option>
+			       	<option id="user-restaurant" value="pizza">Pizza</option>
+			       	<option id="user-restaurant" value="chinese">Chinese</option>
+			      </select>
+		     </div>
+		  </div>
+		  <button type="submit" class="btn btn-default">Search</button>
+		</form>
+	</div>
+
+	{{>search-results }}
+</section>
+{{!-- {{>venue-queue}} --}}
