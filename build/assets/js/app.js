@@ -6,9 +6,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var baseURL = "https://api.foursquare.com/v2/venues/search";
-var clientID = "?client_id=HCTUKRIVEDV3VH5BKEOK0LI0HMF23YQOQ4AY5HX0Y2RMW4DJ";
-var clientSecret = "&client_secret=OWNAX2PFLETLPXL0OQJHVONRAL3SIJNCOWNL1V40OXADLJQU";
+var baseURL = "SECRET";
+var clientID = "?client_id=SECRET";
+var clientSecret = "&client_secret=SECRET";
 var version = "&v=20150223";
 
 var map = new google.maps.Map(document.getElementById('map'), {
